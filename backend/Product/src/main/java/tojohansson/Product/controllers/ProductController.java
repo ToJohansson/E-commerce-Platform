@@ -11,8 +11,8 @@ import tojohansson.Product.services.ProductService;
 
 import java.util.List;
 
-@Controller(value = "/api/products")
-@CrossOrigin
+@RestController
+@RequestMapping(value = "/api/products")
 public class ProductController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> productById(@PathVariable("id") Long id){
         ProductDto dto = productService.getProductById(id);
-        return new ResponseEntity<ProductDto>(dto, HttpStatus.OK);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
     @PostMapping("/")
     public ResponseEntity<Product> createProduct(@RequestBody ProductDto dto){
