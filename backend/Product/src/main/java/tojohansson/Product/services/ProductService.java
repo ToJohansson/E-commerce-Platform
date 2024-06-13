@@ -16,10 +16,6 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-
-    public ProductService() {
-    }
-
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
@@ -27,31 +23,30 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public void createProduct(ProductDto productDto) {
-        Product product = mapDtoToProduct(productDto);
-        productRepository.save(product);
+    public ProductDto getProductById(Long id) {
+        Product product = checkProductById(id);
+        return mapProductToDto(product);
     }
 
-    public void updateProduct(ProductDto productDto) {
+    public Product createProduct(ProductDto productDto) {
+        Product product = (mapDtoToProduct(productDto, new Product()));
+        return productRepository.save(product);
+    }
+
+    public Product updateProduct(ProductDto productDto) {
         Product existingProduct = checkProductById(productDto.getId());
-        Product updatedProduct = mapDtoToProduct(productDto);
-        existingProduct.setName(updatedProduct.getName());
-        existingProduct.setDescription(updatedProduct.getDescription());
-        existingProduct.setPrice(updatedProduct.getPrice());
-        existingProduct.setStock(updatedProduct.getStock());
-        productRepository.save(existingProduct);
+        mapDtoToProduct(productDto, existingProduct); // Update existingProduct fields
+        return productRepository.save(existingProduct);
     }
 
-    public void deleteProduct(Long id){
-        Product p = checkProductById(id);
-        productRepository.deleteById(p.getId());
+    public void deleteProduct(Long id) {
+        Product product = checkProductById(id);
+        productRepository.deleteById(product.getId());
     }
 
     public Product checkProductById(Long id) {
-        return EntityNotFoundException.checkNotFound(
-                productRepository.findById(id),
-                "Product not found with id: " + id
-        );
+        return productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
     }
 
     private ProductDto mapProductToDto(Product product) {
@@ -64,13 +59,12 @@ public class ProductService {
         return dto;
     }
 
-    private Product mapDtoToProduct(ProductDto dto) {
-        Product product = new Product();
-        product.setId(dto.getId());
+    private Product mapDtoToProduct(ProductDto dto, Product product) {
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
         product.setStock(dto.getStock());
+
         return product;
     }
 }

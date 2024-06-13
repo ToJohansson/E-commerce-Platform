@@ -2,9 +2,13 @@ package tojohansson.Product.exceptions;
 
 import java.util.Optional;
 
-public class EntityNotFoundException {
+public class EntityNotFoundException extends RuntimeException {
 
-    public static <T> T checkNotFound(Optional<T> optional, String message) {
-        return optional.orElseThrow(() -> new IllegalArgumentException(message));
+    public EntityNotFoundException(String message) {
+        super(message);
+    }
+
+    public static <T> T checkNotFound(Optional<T> optional, String entityName, Long id) {
+        return optional.orElseThrow(() -> new EntityNotFoundException(entityName + " not found with id: " + id));
     }
 }
