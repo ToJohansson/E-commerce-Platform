@@ -1,4 +1,4 @@
-package tojohansson.Customer;
+package tojohansson.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
