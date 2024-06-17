@@ -7,6 +7,9 @@ import tojohansson.customer.exceptions.EntityNotFoundException;
 import tojohansson.customer.models.Customer;
 import tojohansson.customer.repositories.CustomerRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CustomerService {
 
@@ -23,9 +26,20 @@ public class CustomerService {
     }
 
     // get
+    public CustomerDto getCustomerById(Long id) {
+        Customer customer = checkCustomerById(id);
+        return (mapCustomerToDto(customer));
+    }
+
+    public List<CustomerDto> allCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return customers.stream()
+                .map(this::mapCustomerToDto)
+                .collect(Collectors.toList());
+    }
 
     // put
-    public Customer updateCustomer(CustomerDto customerDto){
+    public Customer updateCustomer(CustomerDto customerDto) {
         Customer customer = checkCustomerById(customerDto.getId());
         customer = (mapToCustomer(customerDto, customer));
         return customerRepository.save(customer);
@@ -38,7 +52,7 @@ public class CustomerService {
 
     }
 
-    private Customer checkCustomerById(Long id){
+    private Customer checkCustomerById(Long id) {
         return customerRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Customer with [" + id + "]; not found. "));
     }
