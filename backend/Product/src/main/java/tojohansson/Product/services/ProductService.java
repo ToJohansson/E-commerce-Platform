@@ -35,7 +35,7 @@ public class ProductService {
 
     public Product updateProduct(ProductDto productDto) {
         Product existingProduct = checkProductById(productDto.getId());
-        mapDtoToProduct(productDto, existingProduct); // Update existingProduct fields
+        existingProduct = mapDtoToProduct(productDto, existingProduct); // Update existingProduct fields
         return productRepository.save(existingProduct);
     }
 
