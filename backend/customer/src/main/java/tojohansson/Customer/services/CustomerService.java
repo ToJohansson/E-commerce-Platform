@@ -54,7 +54,7 @@ public class CustomerService {
 
     private Customer checkCustomerById(Long id) {
         return customerRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Customer with [" + id + "]; not found. "));
+                new EntityNotFoundException("Customer with ID [" + id + "], not found. "));
     }
 
     private Customer mapToCustomer(CustomerDto cDto, Customer customer) {
@@ -66,6 +66,7 @@ public class CustomerService {
 
     private CustomerDto mapCustomerToDto(Customer customer) {
         CustomerDto dto = new CustomerDto();
+        dto.setId(customer.getId());
         dto.setName(customer.getName());
         dto.setAddress(customer.getAddress());
         dto.setMail(customer.getMail());
