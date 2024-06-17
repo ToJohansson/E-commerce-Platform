@@ -26,6 +26,9 @@ public class CustomerService {
     // put
 
     // delete
+    public void deleteCustomer(Long id){
+
+    }
 
     private Customer mapToCustomer(CustomerDto cDto, Customer customer){
         customer.setName(cDto.getName());
