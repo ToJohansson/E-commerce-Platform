@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="811a32b0-8fd9-46f2-89ee-5763c3c59fe9" name="Changes" comment="fixing">
-      <change beforePath="$PROJECT_DIR$/Product/Product.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/someThing.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="811a32b0-8fd9-46f2-89ee-5763c3c59fe9" name="Changes" comment="fixing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +41,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/46768/Documents/ecom/backend/customer",
+    "last_opened_file_path": "C:/Users/46768/Documents/ecom/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -52,7 +49,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "8f9ce786002b0312099cdfdf1e2849c8"
+    "spring.configuration.checksum": "deb10517653c255364175796ace3553f"
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.CustomerApplication">
@@ -81,6 +78,7 @@
       <updated>1718282508263</updated>
       <workItem from="1718282509661" duration="537000" />
       <workItem from="1718283119502" duration="57000" />
+      <workItem from="1718698087770" duration="47000" />
     </task>
     <task id="LOCAL-00001" summary="tets commit">
       <created>1718282568876</created>
