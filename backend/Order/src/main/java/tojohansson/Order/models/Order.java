@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     public enum OrderStatus {

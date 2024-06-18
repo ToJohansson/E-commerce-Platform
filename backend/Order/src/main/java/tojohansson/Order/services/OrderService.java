@@ -23,6 +23,7 @@ public class OrderService {
     // Create
     public Order createOrder (OrderDto dto) {
         Order order = mapDtoToOrder(dto, new Order());
+        order.setStatus(Order.OrderStatus.valueOf("PENDING"));
         return orderRepository.save(order);
     }
 
@@ -55,7 +56,7 @@ public class OrderService {
     // exception
     private Order checkOrderById(Long id) {
         return orderRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Order with ID [" + "] not found."));
+                new EntityNotFoundException("Order with ID [" + id + "], not found."));
     }
 
     // DTO mapping
