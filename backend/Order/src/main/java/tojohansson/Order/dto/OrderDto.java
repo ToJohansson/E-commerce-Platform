@@ -1,29 +1,30 @@
 package tojohansson.Order.dto;
 
+
+import tojohansson.Order.models.Order;
+
 public class OrderDto {
 
-    public enum OrderStatus {
-        PENDING,
-        ACTIVE,
-        SHIPPING
-    }
 
+    // order
     private Long id;
+    private double totalPrice;
+    private Order.OrderStatus status;
 
+    // product
     private Long productId;
     private String productName;
     private int productStock;
     private double productPrice;
 
+    // customer
     private Long CustomerId;
     private String CustomerName;
     private String CustomerAddress;
     private String CustomerMail;
 
-    private double totalPrice;
-    private OrderStatus status;
-
-    public OrderDto(){}
+    public OrderDto() {
+    }
 
     public Long getId() {
         return id;
@@ -105,11 +106,11 @@ public class OrderDto {
         this.totalPrice = totalPrice;
     }
 
-    public OrderStatus getStatus() {
+    public Order.OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(Order.OrderStatus status) {
         this.status = status;
     }
 }
