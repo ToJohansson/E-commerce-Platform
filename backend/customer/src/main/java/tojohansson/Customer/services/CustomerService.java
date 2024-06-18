@@ -73,4 +73,9 @@ public class CustomerService {
         return dto;
     }
 
+    public CustomerDto getCustomerInfo(Long customerId) {
+        Customer c = checkCustomerById(customerId);
+        CustomerDto dto = mapCustomerToDto(c);
+        return dto;
+    }
 }

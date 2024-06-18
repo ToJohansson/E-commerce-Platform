@@ -2,6 +2,9 @@ package tojohansson.Order.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "orders")
@@ -16,15 +19,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long productId;
-    private String productName;
-    private int productStock;
-    private double productPrice;
+    private List<Long> productIds = new ArrayList<>();
 
     private Long CustomerId;
-    private String CustomerName;
-    private String CustomerAddress;
-    private String CustomerMail;
 
     private double totalPrice;
     @Enumerated(EnumType.STRING)
@@ -40,68 +37,23 @@ public class Order {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
+    public List<Long> getProductIds() {
+        return productIds;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setListProductId(List<Long> productId) {
+        this.productIds = productId;
     }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public int getProductStock() {
-        return productStock;
-    }
-
-    public void setProductStock(int productStock) {
-        this.productStock = productStock;
-    }
-
-    public double getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public void addProductIdToList(Long id){
+        this.productIds.add(id);
     }
 
     public Long getCustomerId() {
         return CustomerId;
     }
 
-    public void setCustomerId(Long cusomerId) {
-        CustomerId = cusomerId;
-    }
-
-    public String getCustomerName() {
-        return CustomerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        CustomerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return CustomerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        CustomerAddress = customerAddress;
-    }
-
-    public String getCustomerMail() {
-        return CustomerMail;
-    }
-
-    public void setCustomerMail(String customerMail) {
-        CustomerMail = customerMail;
+    public void setCustomerId(Long customerId) {
+        CustomerId = customerId;
     }
 
     public double getTotalPrice() {
