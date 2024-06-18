@@ -3,6 +3,9 @@ package tojohansson.Order.dto;
 
 import tojohansson.Order.models.Order;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderDto {
 
 
@@ -11,6 +14,7 @@ public class OrderDto {
     private double totalPrice;
     private Order.OrderStatus status;
 
+    private List<Long> productIds;
     // product
     private Long productId;
     private String productName;
@@ -23,6 +27,12 @@ public class OrderDto {
     private String CustomerAddress;
     private String CustomerMail;
 
+    // product
+    private List<ProductInfoDto> listOfProducts = new ArrayList<>();
+
+    // customer
+    private CustomerInfoDto customerInfoDto;
+
     public OrderDto() {
     }
 
@@ -32,6 +42,30 @@ public class OrderDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Long> getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
+    }
+
+    public List<ProductInfoDto> getListOfProducts() {
+        return listOfProducts;
+    }
+
+    public void setListOfProducts(List<ProductInfoDto> listOfProducts) {
+        this.listOfProducts = listOfProducts;
+    }
+
+    public CustomerInfoDto getCustomerInfoDto() {
+        return customerInfoDto;
+    }
+
+    public void setCustomerInfoDto(CustomerInfoDto customerInfoDto) {
+        this.customerInfoDto = customerInfoDto;
     }
 
     public Long getProductId() {
