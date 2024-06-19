@@ -1,6 +1,11 @@
 package tojohansson.Product.dto;
 
-public class ProductDto {
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.io.Serializable;
+
+@JsonSerialize
+public class ProductDto implements Serializable {
 
     private Long id;
     private String name;

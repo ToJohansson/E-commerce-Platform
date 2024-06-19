@@ -21,6 +21,10 @@ public class ProductService {
         return products.stream()
                 .map(this::mapProductToDto)
                 .collect(Collectors.toList());
+
+    }
+    public boolean productExists(Long id){
+        return productRepository.existsById(id);
     }
 
     public ProductDto getProductById(Long id) {
