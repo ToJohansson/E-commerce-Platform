@@ -19,6 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ElementCollection
     private List<Long> productIds = new ArrayList<>();
 
     private Long CustomerId;
