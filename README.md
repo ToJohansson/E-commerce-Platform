@@ -1,14 +1,14 @@
 # E-commerce-Platform
 
-Welcome to our E-commerce Platform project! This repository contains the backend system built with Java Spring Boot, utilizing RabbitMQ as a message broker, and PostgreSQL for database management using Docker containers. The frontend is developed in React with Bootstrap for styling.
+Welcome to my E-commerce Platform project! This repository contains the backend system built with Java Spring Boot, utilizing RabbitMQ as a message broker, and PostgreSQL for database management using Docker containers. The frontend is developed in React with Bootstrap for styling.
 
 Project Structure
 The project is organized into two main parts: the backend (Java Spring Boot) and the frontend (React).
 
 Backend
-The backend system is structured as a microservice architecture using Java Spring Boot. It handles various functionalities such as user authentication, product management, order processing, and interaction with the PostgreSQL database via Docker containers. Key features of the backend include:
+The backend system is structured as a microservice architecture using Java Spring Boot. It handles various functionalities such as Customer, Products and Orders, and interaction with the PostgreSQL database via Docker containers. Key features of the backend include:
 
-Microservices: Each aspect of the e-commerce platform (e.g., user management, product catalog, orders) is designed as a separate microservice, promoting modularity and scalability.
+Microservices: Each aspect of the e-commerce platform (e.g., Customer, product order) is designed as a separate microservice, promoting modularity and scalability.
 
 RabbitMQ Integration: Asynchronous communication and event-driven architecture are implemented using RabbitMQ, ensuring efficient handling of messages and events across microservices.
 
@@ -34,7 +34,3 @@ Ensure Java and Maven are installed.
 Set up RabbitMQ locally or use a cloud service.
 Configure PostgreSQL database in Docker containers or using a cloud service.
 Navigate to the backend directory and run mvn spring-boot:run to start the backend services.
-Frontend Setup:
-
-Navigate to the frontend directory and run npm install to install dependencies.
-Start the frontend development server using np
