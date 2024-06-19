@@ -1,13 +1,17 @@
 package tojohansson.Order.dto;
 
-public class ProductInfoDto {
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tojohansson.Order.deserialize.ProductDtoDeserializer;
+
+@JsonDeserialize(using = ProductDtoDeserializer.class)
+public class ProductDto  {
 
     private Long productId;
     private String productName;
     private int productStock;
     private double productPrice;
 
-    public ProductInfoDto() {
+    public ProductDto() {
     }
 
     public Long getProductId() {

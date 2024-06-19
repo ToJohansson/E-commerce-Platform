@@ -14,24 +14,13 @@ public class OrderDto {
     private double totalPrice;
     private Order.OrderStatus status;
 
-    private List<Long> productIds;
-    // product
-    private Long productId;
-    private String productName;
-    private int productStock;
-    private double productPrice;
-
     // customer
     private Long CustomerId;
-    private String CustomerName;
-    private String CustomerAddress;
-    private String CustomerMail;
+    private CustomerInfoDto customerInfoDto;
 
     // product
-    private List<ProductInfoDto> listOfProducts = new ArrayList<>();
-
-    // customer
-    private CustomerInfoDto customerInfoDto;
+    private List<ProductDto> listOfProducts = new ArrayList<>();
+    private List<Long> productIds;
 
     public OrderDto() {
     }
@@ -52,11 +41,11 @@ public class OrderDto {
         this.productIds = productIds;
     }
 
-    public List<ProductInfoDto> getListOfProducts() {
+    public List<ProductDto> getListOfProducts() {
         return listOfProducts;
     }
 
-    public void setListOfProducts(List<ProductInfoDto> listOfProducts) {
+    public void setListOfProducts(List<ProductDto> listOfProducts) {
         this.listOfProducts = listOfProducts;
     }
 
@@ -68,68 +57,12 @@ public class OrderDto {
         this.customerInfoDto = customerInfoDto;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public int getProductStock() {
-        return productStock;
-    }
-
-    public void setProductStock(int productStock) {
-        this.productStock = productStock;
-    }
-
-    public double getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
-    }
-
     public Long getCustomerId() {
         return CustomerId;
     }
 
     public void setCustomerId(Long cusomerId) {
         CustomerId = cusomerId;
-    }
-
-    public String getCustomerName() {
-        return CustomerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        CustomerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return CustomerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        CustomerAddress = customerAddress;
-    }
-
-    public String getCustomerMail() {
-        return CustomerMail;
-    }
-
-    public void setCustomerMail(String customerMail) {
-        CustomerMail = customerMail;
     }
 
     public double getTotalPrice() {

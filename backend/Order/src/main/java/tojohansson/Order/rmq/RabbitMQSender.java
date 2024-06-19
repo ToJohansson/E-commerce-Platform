@@ -1,4 +1,4 @@
-package tojohansson.Order.config;
+package tojohansson.Order.rmq;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ public class RabbitMQSender {
     private RabbitTemplate rabbitTemplate;
     public void sendProductIds(List<Long> productIds) {
         for (Long id : productIds) {
-            System.out.println("SENDING " + id);
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "product.info.request", id);
         }
     }
