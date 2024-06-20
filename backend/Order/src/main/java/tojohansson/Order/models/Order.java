@@ -13,7 +13,8 @@ public class Order {
     public enum OrderStatus {
         PENDING,
         ACTIVE,
-        SHIPPING
+        SHIPPING,
+        CANCELLED
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
