@@ -57,6 +57,9 @@ public class CustomerService {
                 new EntityNotFoundException("Customer with ID [" + id + "], not found. "));
     }
 
+    public boolean customerExists(Long id){
+        return customerRepository.existsById(id);
+    }
     private Customer mapToCustomer(CustomerDto cDto, Customer customer) {
         customer.setName(cDto.getName());
         customer.setAddress(cDto.getAddress());
@@ -73,9 +76,4 @@ public class CustomerService {
         return dto;
     }
 
-    public CustomerDto getCustomerInfo(Long customerId) {
-        Customer c = checkCustomerById(customerId);
-        CustomerDto dto = mapCustomerToDto(c);
-        return dto;
-    }
 }
