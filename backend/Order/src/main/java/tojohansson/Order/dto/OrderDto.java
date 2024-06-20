@@ -15,8 +15,7 @@ public class OrderDto {
     private Order.OrderStatus status;
 
     // customer
-    private Long CustomerId;
-    private CustomerInfoDto customerInfoDto;
+    private Long customerId;
 
     // product
     private List<ProductDto> listOfProducts = new ArrayList<>();
@@ -41,28 +40,12 @@ public class OrderDto {
         this.productIds = productIds;
     }
 
-    public List<ProductDto> getListOfProducts() {
-        return listOfProducts;
-    }
-
-    public void setListOfProducts(List<ProductDto> listOfProducts) {
-        this.listOfProducts = listOfProducts;
-    }
-
-    public CustomerInfoDto getCustomerInfoDto() {
-        return customerInfoDto;
-    }
-
-    public void setCustomerInfoDto(CustomerInfoDto customerInfoDto) {
-        this.customerInfoDto = customerInfoDto;
-    }
-
     public Long getCustomerId() {
-        return CustomerId;
+        return customerId;
     }
 
-    public void setCustomerId(Long cusomerId) {
-        CustomerId = cusomerId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public double getTotalPrice() {

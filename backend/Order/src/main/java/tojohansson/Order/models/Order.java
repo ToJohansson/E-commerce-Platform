@@ -22,7 +22,7 @@ public class Order {
     @ElementCollection
     private List<Long> productIds = new ArrayList<>();
 
-    private Long CustomerId;
+    private Long customerId;
 
     private double totalPrice;
     @Enumerated(EnumType.STRING)
@@ -50,11 +50,11 @@ public class Order {
     }
 
     public Long getCustomerId() {
-        return CustomerId;
+        return customerId;
     }
 
     public void setCustomerId(Long customerId) {
-        CustomerId = customerId;
+        this.customerId = customerId;
     }
 
     public double getTotalPrice() {

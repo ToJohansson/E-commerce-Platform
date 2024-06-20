@@ -25,9 +25,12 @@ public class OrderService {
     // Create
     public Order createOrder(OrderDto dto) {
         Order order = mapDtoToOrder(dto, new Order());
+        // ask rmq for data about customer
+        rabbitMQSender.sendCustomerId(order.getCustomerId());
 
         // ask rmq for data about these product id´s
         rabbitMQSender.sendProductIds(order.getProductIds());
+
 
 
         order.setStatus(Order.OrderStatus.valueOf("PENDING"));
