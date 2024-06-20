@@ -20,7 +20,6 @@ public class RabbitMQSender {
         try {
             // Konvertera ProductDto till JSON-sträng
             String jsonDto = objectMapper.writeValueAsString(dto);
-            System.out.println("DTO: " + jsonDto);
             // Skicka JSON-strängen via RabbitMQ
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "product.info.response", jsonDto);
         } catch (JsonProcessingException e) {
