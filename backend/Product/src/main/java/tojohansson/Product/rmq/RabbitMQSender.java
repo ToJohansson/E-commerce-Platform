@@ -21,6 +21,7 @@ public class RabbitMQSender {
             // Konvertera ProductDto till JSON-sträng
             String jsonDto = objectMapper.writeValueAsString(dto);
             // Skicka JSON-strängen via RabbitMQ
+            System.out.println("SENDING DTO " + dto.getName());
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "product.info.response", jsonDto);
         } catch (JsonProcessingException e) {
             // Hantera fel vid JSON-konvertering

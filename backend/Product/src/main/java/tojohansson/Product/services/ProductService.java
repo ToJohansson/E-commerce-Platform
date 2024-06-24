@@ -29,7 +29,7 @@ public class ProductService {
         return productRepository.existsById(id);
     }
 
-    public void decreaseProductStock(Long id, int amount) {
+    public ProductDto decreaseProductStock(Long id, int amount) {
         Product p = checkProductById(id);
         int inStock = p.getStock();
         if (inStock < amount) {
@@ -37,6 +37,8 @@ public class ProductService {
         }
         p.setStock(inStock - amount);
         productRepository.save(p);
+
+        return mapProductToDto(p);
     }
 
     public ProductDto getProductById(Long id) {
