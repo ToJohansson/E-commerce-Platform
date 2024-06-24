@@ -1,5 +1,6 @@
 package tojohansson.Order.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,7 @@ public class OrderController {
 
     // POST
     @PostMapping("/")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDto dto) {
-        System.out.println("hello! " );
+    public ResponseEntity<Order> createOrder(@RequestBody OrderDto dto) throws JsonProcessingException {
         return new ResponseEntity<>(orderService.createOrder(dto), HttpStatus.CREATED);
     }
 
