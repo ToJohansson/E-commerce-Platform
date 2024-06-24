@@ -15,6 +15,7 @@ public class RabbitMQReceiver {
     @Autowired
     private ObjectMapper objectMapper;
 
+
     @RabbitListener(queues = RabbitMQConfig.CUSTOMER_INFO_RESPONSE_QUEUE)
     public void receiveCustomerData(String jsonMessage) {
         try {
@@ -33,8 +34,7 @@ public class RabbitMQReceiver {
     public void receiveProductData(String jsonMessage) {
         try {
             // Deserialize JSON-strängen till Dto med ObjectMapper
-            ProductDto productDto = objectMapper.readValue(jsonMessage, ProductDto.class);
-
+            ProductDto dto = objectMapper.readValue(jsonMessage, ProductDto.class);
 
             // Implementera logik med productDto
 

@@ -6,43 +6,52 @@ import tojohansson.Order.deserialize.ProductDtoDeserializer;
 @JsonDeserialize(using = ProductDtoDeserializer.class)
 public class ProductDto  {
 
-    private Long productId;
-    private String productName;
-    private int productStock;
-    private double productPrice;
+    private Long id;
+    private String name;
+    private int stock;
+    private double price;
+    private String description;
 
     public ProductDto() {
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getProductStock() {
-        return productStock;
+    public int getStock() {
+        return stock;
     }
 
-    public void setProductStock(int productStock) {
-        this.productStock = productStock;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
-    public double getProductPrice() {
-        return productPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

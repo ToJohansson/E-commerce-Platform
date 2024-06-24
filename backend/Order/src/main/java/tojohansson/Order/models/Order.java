@@ -20,44 +20,22 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection
-    private List<Long> productIds = new ArrayList<>();
-
-    private Long customerId;
-
     private double totalPrice;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    // Customer
+    private Long customerId;
+    // Product
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> listOfProducts = new ArrayList<>();
+
     public Order(){}
+
 
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Long> getProductIds() {
-        return productIds;
-    }
-
-    public void setListProductId(List<Long> productId) {
-        this.productIds = productId;
-    }
-    public void addProductIdToList(Long id){
-        this.productIds.add(id);
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -74,5 +52,20 @@ public class Order {
         this.status = status;
     }
 
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public List<OrderItem> getListOfProducts() {
+        return listOfProducts;
+    }
+
+    public void setListOfProducts(List<OrderItem> listOfProducts) {
+        this.listOfProducts = listOfProducts;
+    }
 }
 

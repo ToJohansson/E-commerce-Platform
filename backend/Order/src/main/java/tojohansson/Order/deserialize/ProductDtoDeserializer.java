@@ -23,11 +23,11 @@ public class ProductDtoDeserializer extends JsonDeserializer<ProductDto> {
         int stock = node.get("stock").asInt();
 
         ProductDto productDto = new ProductDto();
-        productDto.setProductId(id);
-        productDto.setProductName(name);
-       // productDto.setPDescription(description);
-        productDto.setProductStock(stock);
-        productDto.setProductPrice(price);
+        productDto.setId(id);
+        productDto.setName(name);
+        productDto.setDescription(description);
+        productDto.setStock(stock);
+        productDto.setPrice(price);
 
         return productDto;
     }
