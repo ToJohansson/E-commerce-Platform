@@ -22,9 +22,8 @@ public class RabbitMQReceiver {
             // Deserialize JSON-strängen till ProductDto med ObjectMapper
             CustomerDto dto = objectMapper.readValue(jsonMessage, CustomerDto.class);
 
-
             // Implementera logik med Dto
-
+            System.out.println("RECEIVING CUSTOMER " + dto.getName());
         } catch (IOException e) {
             // Hantera fel vid deserialisering
             System.err.println("Failed to deserialize message: " + e.getMessage());
@@ -37,6 +36,7 @@ public class RabbitMQReceiver {
             ProductDto dto = objectMapper.readValue(jsonMessage, ProductDto.class);
 
             // Implementera logik med productDto
+            System.out.println("RECEIVING PRODUCT " + dto.getName());
 
         } catch (IOException e) {
             // Hantera fel vid deserialisering

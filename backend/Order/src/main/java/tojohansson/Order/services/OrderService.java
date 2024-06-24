@@ -1,11 +1,10 @@
 package tojohansson.Order.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tojohansson.Order.dto.CustomerDto;
 import tojohansson.Order.dto.OrderItemDto;
-import tojohansson.Order.dto.ProductDto;
 import tojohansson.Order.models.OrderItem;
 import tojohansson.Order.rmq.RabbitMQSender;
 import tojohansson.Order.dto.OrderDto;
@@ -29,13 +28,17 @@ public class OrderService {
 
     // Create
     @Transactional
-    public Order createOrder(OrderDto dto) {
+    public Order createOrder(OrderDto dto) throws JsonProcessingException {
         Order order = mapDtoToOrder(dto, new Order());
         // ask rmq for data about customer
         rabbitMQSender.sendCustomerId(order.getCustomerId());
 
-        // ask rmq for data about these product id´s
-        order.getListOfProducts().forEach(product -> rabbitMQSender.sendProductIds(product.getId()));
+        // ask rmq for data about these product ids
+        List<OrderItem> orderItems = order.getListOfProducts();
+
+        for (OrderItem item : orderItems) {
+            rabbitMQSender.sendProductDto(item);
+        }
 
         order.setStatus(Order.OrderStatus.PENDING);
         return orderRepository.save(order);
@@ -107,9 +110,6 @@ public class OrderService {
 
         return finalOrder;
     }
-
-
-
 
     private OrderItemDto mapOrderItemToDto(OrderItem orderItem) {
         if (orderItem == null) {

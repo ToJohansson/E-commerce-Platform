@@ -1,5 +1,6 @@
 package tojohansson.Order.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class Order {
     // Customer
     private Long customerId;
     // Product
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<OrderItem> listOfProducts = new ArrayList<>();
 
     public Order(){}
