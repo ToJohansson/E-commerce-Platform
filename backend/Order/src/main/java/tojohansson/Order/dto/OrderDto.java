@@ -1,25 +1,18 @@
 package tojohansson.Order.dto;
 
-
 import tojohansson.Order.models.Order;
+import tojohansson.Order.models.OrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDto {
 
-
-    // order
     private Long id;
     private double totalPrice;
     private Order.OrderStatus status;
-
-    // customer
     private Long customerId;
-
-    // product
-    private List<ProductDto> listOfProducts = new ArrayList<>();
-    private List<Long> productIds;
+    private List<OrderItemDto> listOfProducts = new ArrayList<>();
 
     public OrderDto() {
     }
@@ -30,22 +23,6 @@ public class OrderDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Long> getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(List<Long> productIds) {
-        this.productIds = productIds;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public double getTotalPrice() {
@@ -62,5 +39,21 @@ public class OrderDto {
 
     public void setStatus(Order.OrderStatus status) {
         this.status = status;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public List<OrderItemDto> getListOfProducts() {
+        return listOfProducts;
+    }
+
+    public void setListOfProducts(List<OrderItemDto> listOfProducts) {
+        this.listOfProducts = listOfProducts;
     }
 }

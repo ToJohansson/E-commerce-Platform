@@ -2,6 +2,11 @@ package tojohansson.Order.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tojohansson.Order.dto.CustomerDto;
+import tojohansson.Order.dto.OrderItemDto;
+import tojohansson.Order.dto.ProductDto;
+import tojohansson.Order.models.OrderItem;
 import tojohansson.Order.rmq.RabbitMQSender;
 import tojohansson.Order.dto.OrderDto;
 import tojohansson.Order.exceptions.EntityNotFoundException;
@@ -23,17 +28,16 @@ public class OrderService {
     }
 
     // Create
+    @Transactional
     public Order createOrder(OrderDto dto) {
         Order order = mapDtoToOrder(dto, new Order());
         // ask rmq for data about customer
         rabbitMQSender.sendCustomerId(order.getCustomerId());
 
         // ask rmq for data about these product id´s
-        rabbitMQSender.sendProductIds(order.getProductIds());
+        order.getListOfProducts().forEach(product -> rabbitMQSender.sendProductIds(product.getId()));
 
-
-
-        order.setStatus(Order.OrderStatus.valueOf("PENDING"));
+        order.setStatus(Order.OrderStatus.PENDING);
         return orderRepository.save(order);
     }
 
@@ -58,6 +62,7 @@ public class OrderService {
     }
 
     // Delete
+    @Transactional
     public void deleteOrder(Long id) {
         Order order = checkOrderById(id);
         orderRepository.deleteById(order.getId());
@@ -73,22 +78,58 @@ public class OrderService {
     private OrderDto mapOrderToDto(Order order) {
         OrderDto dto = new OrderDto();
         dto.setId(order.getId());
-        dto.setStatus(order.getStatus());
         dto.setTotalPrice(order.getTotalPrice());
+        dto.setStatus(order.getStatus());
+
         dto.setCustomerId(order.getCustomerId());
-        dto.setProductIds(order.getProductIds());
+
+        List<OrderItemDto> orderItemDtos = order.getListOfProducts().stream()
+                .map(this::mapOrderItemToDto)
+                .collect(Collectors.toList());
+        dto.setListOfProducts(orderItemDtos);
+
         return dto;
     }
 
     private Order mapDtoToOrder(OrderDto dto, Order order) {
-        order.setStatus(dto.getStatus());
-        order.setTotalPrice(dto.getTotalPrice());
-        order.setCustomerId(dto.getCustomerId());
-        for (Long id : dto.getProductIds()) {
+        Order finalOrder = (order == null) ? new Order() : order;
 
-            order.addProductIdToList(id);
+        finalOrder.setTotalPrice(dto.getTotalPrice());
+        finalOrder.setStatus(dto.getStatus());
+        finalOrder.setCustomerId(dto.getCustomerId());
+
+        // Map order items
+        List<OrderItem> orderItems = dto.getListOfProducts().stream()
+                .map(item -> mapDtoToOrderItem(item, finalOrder))
+                .collect(Collectors.toList());
+
+        finalOrder.setListOfProducts(orderItems); // Set the list of OrderItems in Order
+
+        return finalOrder;
+    }
+
+
+
+
+    private OrderItemDto mapOrderItemToDto(OrderItem orderItem) {
+        if (orderItem == null) {
+            return null;
         }
+        OrderItemDto dto = new OrderItemDto();
+        dto.setId(orderItem.getId());
+        dto.setProductId(orderItem.getProductId());
+        dto.setQuantity(orderItem.getQuantity());
+        return dto;
+    }
 
-        return order;
+    private OrderItem mapDtoToOrderItem(OrderItemDto dto, Order order) {
+        if (dto == null) {
+            return null;
+        }
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProductId(dto.getProductId());
+        orderItem.setQuantity(dto.getQuantity());
+        orderItem.setOrder(order); // Set parent order
+        return orderItem;
     }
 }

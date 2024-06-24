@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tojohansson.Product.dto.ProductDto;
 import tojohansson.Product.exceptions.EntityNotFoundException;
+import tojohansson.Product.exceptions.InsufficientStockException;
 import tojohansson.Product.models.Product;
 import tojohansson.Product.repositories.ProductRepository;
 
@@ -23,8 +24,21 @@ public class ProductService {
                 .collect(Collectors.toList());
 
     }
-    public boolean productExists(Long id){
+
+    public boolean productExists(Long id) {
         return productRepository.existsById(id);
+    }
+
+    public ProductDto decreaseProductStock(Long id, int amount) {
+        Product p = checkProductById(id);
+        int inStock = p.getStock();
+        if (inStock < amount) {
+            throw new InsufficientStockException("Not enough in stock");
+        }
+        p.setStock(inStock - amount);
+        productRepository.save(p);
+
+        return mapProductToDto(p);
     }
 
     public ProductDto getProductById(Long id) {
