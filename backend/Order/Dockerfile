@@ -9,7 +9,6 @@ COPY target/order.jar /app/order.jar
 
 # Copy wait-for-it.sh script into the container
 COPY scripts/wait-for-it.sh /app/wait-for-it.sh
-
 # Make the script executable
 RUN chmod +x /app/wait-for-it.sh
 
