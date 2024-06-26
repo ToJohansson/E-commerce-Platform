@@ -1,10 +1,10 @@
 import React from "react";
+import ProductForm from "../Forms/ProductForm";
 
 const DisplayContent = () => {
   return (
     <div>
-      {" "}
-      <h1>Site Content will be displayed here</h1>
+      <ProductForm />
     </div>
   );
 };

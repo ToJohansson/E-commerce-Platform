@@ -1,29 +1,23 @@
 import React from "react";
+import Header from "./Components/Header";
+import LeftNav from "./Components/LeftNav";
+import DisplayContent from "./Components/DisplayContent";
+import "./app.css";
 
 const App = () => {
   return (
-    <div className="modal show d-block" tabIndex={-1}>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Admin Modal</h5>
-            <button
-              type="button"
-              className="btn-close"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="modal-body">
-            <p>This is the admin modal content.</p>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary">
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              Save changes
-            </button>
-          </div>
+    <div className="container-fluid d-flex flex-column">
+      <div className="row header">
+        <div className="col">
+          <Header />
+        </div>
+      </div>
+      <div className="row flex-grow-1 d-flex flex-row">
+        <div className="col-md-2 leftNav d-flex flex-column">
+          <LeftNav />
+        </div>
+        <div className="col-md-10 mainContent d-flex flex-column">
+          <DisplayContent />
         </div>
       </div>
     </div>
