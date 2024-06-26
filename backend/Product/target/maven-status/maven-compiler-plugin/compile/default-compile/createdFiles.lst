@@ -1,0 +1,13 @@
+tojohansson\Product\rmq\RabbitMQReceiver.class
+tojohansson\Product\rmq\RabbitMQSender.class
+tojohansson\Product\ProductApplication.class
+tojohansson\Product\dto\ProductDto.class
+tojohansson\Product\exceptions\EntityNotFoundException.class
+tojohansson\Product\controllers\ProductController.class
+tojohansson\Product\rmq\RabbitMQConfig.class
+tojohansson\Product\repositories\ProductRepository.class
+tojohansson\Product\deserialize\ProductDtoDeserializer$1.class
+tojohansson\Product\exceptions\InsufficientStockException.class
+tojohansson\Product\models\Product.class
+tojohansson\Product\deserialize\ProductDtoDeserializer.class
+tojohansson\Product\services\ProductService.class

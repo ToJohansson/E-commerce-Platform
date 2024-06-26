@@ -1,0 +1,12 @@
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\controllers\ProductController.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\deserialize\ProductDtoDeserializer.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\dto\ProductDto.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\exceptions\EntityNotFoundException.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\exceptions\InsufficientStockException.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\models\Product.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\ProductApplication.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\repositories\ProductRepository.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\rmq\RabbitMQConfig.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\rmq\RabbitMQReceiver.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\rmq\RabbitMQSender.java
+C:\Users\46768\Documents\ecom\backend\Product\src\main\java\tojohansson\Product\services\ProductService.java
