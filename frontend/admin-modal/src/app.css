@@ -1,0 +1,40 @@
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #c9e1f0;
+  padding-top: 10px;
+  overflow: hidden; /* Hanterar överflödet i headern */
+}
+
+.leftNav {
+  border-right: 1px solid #c9e1f0;
+  padding-top: 10px;
+  word-wrap: break-word; /* Bryter långa ord */
+  overflow: hidden; /* Hanterar överflödet i navigationen */
+}
+
+.mainContent {
+  padding-left: 10px;
+  padding-top: 10px;
+  overflow: auto; /* Tillåter scroll om innehållet är för stort */
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.row.flex-grow-1 {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.leftNav {
+  flex: 0 0 200px; /* Fixerad bredd för navigationen */
+}
+
+.mainContent {
+  flex: 1;
+  overflow-y: auto;
+}
