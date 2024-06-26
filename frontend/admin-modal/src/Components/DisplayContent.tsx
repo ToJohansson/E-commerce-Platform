@@ -1,10 +1,16 @@
 import React from "react";
-import ProductForm from "../Forms/ProductForm";
 
-const DisplayContent = () => {
+interface DisplayContentProps {
+  title: string;
+}
+
+const DisplayContent: React.FC<DisplayContentProps> = ({ title }) => {
+  if (!title) {
+    return "Error....";
+  }
   return (
     <div>
-      <ProductForm />
+      <h2>{title}</h2>
     </div>
   );
 };

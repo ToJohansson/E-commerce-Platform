@@ -1,27 +1,31 @@
 .header {
-  background-color: #fff;
+  background-color: darkgrey;
   border-bottom: 1px solid #c9e1f0;
   padding-top: 10px;
-  overflow: hidden; /* Hanterar överflödet i headern */
+  overflow: hidden;
 }
 
 .leftNav {
+  background-color: darkgrey;
   border-right: 1px solid #c9e1f0;
   padding-top: 10px;
-  word-wrap: break-word; /* Bryter långa ord */
-  overflow: hidden; /* Hanterar överflödet i navigationen */
+  word-wrap: break-word;
+  overflow: hidden;
+  min-height: 100vh;
 }
 
 .mainContent {
+  background-color: rgb(200, 194, 194);
   padding-left: 10px;
   padding-top: 10px;
-  overflow: auto; /* Tillåter scroll om innehållet är för stort */
+  flex: 1;
+  overflow-y: auto;
 }
 
 .container-fluid {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .row.flex-grow-1 {
@@ -31,7 +35,8 @@
 }
 
 .leftNav {
-  flex: 0 0 200px; /* Fixerad bredd för navigationen */
+  flex: 0 0 200px;
+  height: 100%;
 }
 
 .mainContent {
