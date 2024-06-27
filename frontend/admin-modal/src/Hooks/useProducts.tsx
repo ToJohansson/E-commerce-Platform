@@ -3,6 +3,7 @@ import { createProduct, getById, getProducts } from "../Api/productApi";
 import { AxiosError } from "axios";
 
 type Product = {
+  id?: number;
   name: string;
   stock: number;
   price: number;
@@ -51,7 +52,7 @@ export const useGetProducts = () => {
       setLoading(false);
     }
   };
-  return { getProducts, data, error, loading };
+  return { getAllProducts, data, error, loading };
 };
 export const useGetProductById = (id: string) => {
   const [data, setData] = useState<Product | null>(null);

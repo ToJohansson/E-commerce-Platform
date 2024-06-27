@@ -26,7 +26,9 @@ export const createProduct = async (product: Product): Promise<Product> => {
 };
 export const getProducts = async (): Promise<Product[]> => {
   try {
-    const response: AxiosResponse<Product[]> = await productService.get(url);
+    const response: AxiosResponse<Product[]> = await productService.get(
+      url + "/"
+    );
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
