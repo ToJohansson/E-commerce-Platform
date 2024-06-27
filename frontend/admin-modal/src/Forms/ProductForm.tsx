@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useCreateProduct } from "../Hooks/useProducts";
 
 type ProductFormInputs = {
   name: string;
@@ -17,10 +18,16 @@ const ProductForm: React.FC = () => {
     formState: { errors },
   } = useForm<ProductFormInputs>();
 
-  const onSubmit: SubmitHandler<ProductFormInputs> = (data) => {
-    console.log(data);
+  const { create } = useCreateProduct();
 
-    reset();
+  const onSubmit: SubmitHandler<ProductFormInputs> = async (data) => {
+    try {
+      console.log(data);
+      await create(data);
+      reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (

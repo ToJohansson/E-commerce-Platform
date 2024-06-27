@@ -1,23 +1,35 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  height: 100%;
+}
+
 .header {
   background-color: darkgrey;
   border-bottom: 1px solid #c9e1f0;
   padding-top: 10px;
-  overflow: hidden;
+  overflow: hidden; /* Hanterar överflödet i headern */
 }
 
 .leftNav {
   background-color: darkgrey;
   border-right: 1px solid #c9e1f0;
   padding-top: 10px;
-  word-wrap: break-word;
-  overflow: hidden;
-  min-height: 100vh;
+  word-wrap: break-word; /* Bryter långa ord */
+  overflow-y: auto; /* Tillåter vertikal scrollning vid behov */
+  flex-shrink: 0;
 }
 
 .mainContent {
   background-color: rgb(200, 194, 194);
-  padding-left: 10px;
-  padding-top: 10px;
+  padding: 10px;
+  height: 100%;
   flex: 1;
   overflow-y: auto;
 }
@@ -25,7 +37,7 @@
 .container-fluid {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .row.flex-grow-1 {
@@ -36,10 +48,9 @@
 
 .leftNav {
   flex: 0 0 200px;
-  height: 100%;
 }
 
 .mainContent {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Tillåter vertikal scrollning vid behov */
 }
