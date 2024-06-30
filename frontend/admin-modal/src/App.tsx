@@ -8,11 +8,11 @@ import {
 import ProductForm from "./Forms/ProductForm";
 import Header from "./Components/Header";
 import LeftNav from "./Components/LeftNav";
-import DisplayContent from "./Components/DisplayContent";
 import "./app.css";
 import Products from "./Components/Products";
 import Orders from "./Components/Orders";
 import Customers from "./Components/Customers";
+import HomePage from "./Components/HomePage";
 
 const App = () => {
   return (
@@ -30,10 +30,7 @@ const App = () => {
           <div className="col-md-10 mainContent">
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
-              <Route
-                path="/home"
-                element={<DisplayContent title="Home" />}
-              />{" "}
+              <Route path="/home" element={<HomePage />} />{" "}
               <Route path="/add-product" element={<ProductForm />} />
               <Route path="/products" element={<Products />} />
               <Route path="/orders" element={<Orders />} />
