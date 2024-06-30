@@ -2,6 +2,7 @@ import { productService } from "./axiosInstance";
 import { AxiosResponse, AxiosError } from "axios";
 
 type Product = {
+  id?: number;
   name: string;
   stock: number;
   price: number;
@@ -9,7 +10,7 @@ type Product = {
 };
 
 const url = "/products";
-export const createProduct = async (product: Product): Promise<Product> => {
+export const postProduct = async (product: Product): Promise<Product> => {
   try {
     const response: AxiosResponse<Product> = await productService.post(
       url + "/",
@@ -38,7 +39,7 @@ export const getProducts = async (): Promise<Product[]> => {
     }
   }
 };
-export const getById = async (id: string): Promise<Product> => {
+export const getById = async (id: number): Promise<Product> => {
   try {
     const response: AxiosResponse<Product> = await productService.get(
       url + `/${id}`
@@ -52,8 +53,8 @@ export const getById = async (id: string): Promise<Product> => {
     }
   }
 };
-export const updateProduct = async (
-  id: string,
+export const putProduct = async (
+  id: number,
   product: Product
 ): Promise<Product> => {
   try {
@@ -70,7 +71,7 @@ export const updateProduct = async (
     }
   }
 };
-export const deleteProduct = async (id: string): Promise<void> => {
+export const deleteProductById = async (id: number): Promise<void> => {
   try {
     await productService.delete(url + `/${id}`);
   } catch (error) {
