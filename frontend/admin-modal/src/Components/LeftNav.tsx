@@ -4,7 +4,14 @@ import { NavLink } from "react-router-dom";
 const LeftNav: React.FC = () => {
   return (
     <div>
-      <h2>Navigation</h2>
+      <h2>
+        <NavLink
+          to="/home"
+          className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+        >
+          Navigation
+        </NavLink>
+      </h2>
       <ul className="nav flex-column">
         <li className="nav-item">
           <NavLink

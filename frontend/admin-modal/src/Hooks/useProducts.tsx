@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { createProduct, getById, getProducts } from "../Api/productApi";
+import {
+  postProduct,
+  getById,
+  getProducts,
+  putProduct,
+  deleteProductById,
+} from "../Api/productApi";
 import { AxiosError } from "axios";
 
 type Product = {
+  id?: number;
   name: string;
   stock: number;
   price: number;
   description: string;
 };
 
-export const useCreateProduct = () => {
+export const usePostProduct = () => {
   const [data, setData] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,13 +24,13 @@ export const useCreateProduct = () => {
   const create = async (product: Product) => {
     setLoading(true);
     try {
-      const response = await createProduct(product);
+      const response = await postProduct(product);
       setData(response);
     } catch (err) {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || "An error occurred");
       } else {
-        setError("An unexpected error occurred");
+        setError("Error when creating product");
       }
     } finally {
       setLoading(false);
@@ -45,15 +52,15 @@ export const useGetProducts = () => {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || "An error occurred");
       } else {
-        setError("An unexpected error occurred");
+        setError("An unexpected problem fetching products");
       }
     } finally {
       setLoading(false);
     }
   };
-  return { getProducts, data, error, loading };
+  return { getAllProducts, data, error, loading };
 };
-export const useGetProductById = (id: string) => {
+export const useGetProductById = (id: number) => {
   const [data, setData] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -66,11 +73,59 @@ export const useGetProductById = (id: string) => {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || "An error occurred");
       } else {
-        setError("An unexpected error occurred");
+        setError("Could not find with id: " + id);
       }
     } finally {
       setLoading(false);
     }
   };
   return { getProductById, data, error, loading };
+};
+
+export const useUpdateProducts = (id: number) => {
+  const [data, setData] = useState<Product | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const updateProduct = async (product: Product) => {
+    setLoading(true);
+    try {
+      const response = await putProduct(id, product);
+      setData(response);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || "An error occurred");
+      } else {
+        setError("Update product failed");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { updateProduct, data, error, loading };
+};
+
+export const useDeleteProduct = (id: number) => {
+  const [data, setData] = useState<Product | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const deleteProduct = async () => {
+    setLoading(true);
+    try {
+      await deleteProductById(id);
+      setData(null);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || "An error occurred");
+      } else {
+        setError("Error trying to delete product");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { deleteProduct, data, error, loading };
 };

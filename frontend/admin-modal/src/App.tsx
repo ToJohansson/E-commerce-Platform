@@ -1,10 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import ProductForm from "./Forms/ProductForm";
 import Header from "./Components/Header";
 import LeftNav from "./Components/LeftNav";
-import DisplayContent from "./Components/DisplayContent";
 import "./app.css";
+import Products from "./Components/Products";
+import Orders from "./Components/Orders";
+import Customers from "./Components/Customers";
+import HomePage from "./Components/HomePage";
 
 const App = () => {
   return (
@@ -21,19 +29,12 @@ const App = () => {
           </div>
           <div className="col-md-10 mainContent">
             <Routes>
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/home" element={<HomePage />} />{" "}
               <Route path="/add-product" element={<ProductForm />} />
-              <Route
-                path="/products"
-                element={<DisplayContent title="Products" />}
-              />
-              <Route
-                path="/orders"
-                element={<DisplayContent title="Orders" />}
-              />
-              <Route
-                path="/customers"
-                element={<DisplayContent title="Customers" />}
-              />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/customers" element={<Customers />} />
             </Routes>
           </div>
         </div>
