@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
+          distribution: 'adopt'  # Du kan byta till den distribution du föredrar, t.ex. 'zulu', 'openjdk'
           java-version: '17'
 
       - name: Cache Maven packages
