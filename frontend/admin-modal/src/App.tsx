@@ -14,7 +14,7 @@ import Orders from "./Components/Orders";
 import Customers from "./Components/Customers";
 import HomePage from "./Components/HomePage";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Router>
       <div className="container-fluid d-flex flex-column">
