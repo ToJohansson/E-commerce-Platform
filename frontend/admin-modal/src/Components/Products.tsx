@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetProducts } from "../Hooks/useProducts";
 
 const Products: React.FC = () => {
