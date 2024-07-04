@@ -27,10 +27,7 @@ const Products: React.FC = () => {
           {data?.map((product) => {
             const collapseId = `collapse${product.id}`;
             const headingId = `heading${product.id}`;
-            let isEven;
-            if (product.id) {
-              isEven = product.id % 2 === 0;
-            }
+
             const defaultBackgroundColor = "white";
             const activeBackgroundColor = "#cfe2ff";
             const backgroundColor =
