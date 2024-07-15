@@ -106,12 +106,12 @@ export const useUpdateProducts = (id: number) => {
   return { updateProduct, data, error, loading };
 };
 
-export const useDeleteProduct = (id: number) => {
+export const useDeleteProduct = () => {
   const [data, setData] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const deleteProduct = async () => {
+  const deleteProduct = async (id: number) => {
     setLoading(true);
     try {
       await deleteProductById(id);

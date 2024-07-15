@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useGetProducts } from "../Hooks/useProducts";
+import { useGetProducts, useDeleteProduct } from "../Hooks/useProducts";
 import "./components.css";
 import ModalProduct from "../Modals/ModalProduct";
 
 const Products: React.FC = () => {
   const { getAllProducts, data, error, loading } = useGetProducts();
+  const { deleteProduct} = useDeleteProduct();
+
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isModalProductOpen, setModalProductOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(
@@ -25,13 +27,23 @@ const Products: React.FC = () => {
     setActiveId((prevId) => (prevId === id ? null : id));
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteProduct(id);
+      console.log("Product with id ", id, " was deleted");
+      fetchProducts(); 
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   const fetchProducts = () => {
     getAllProducts();
   }
 
   useEffect(() => {
     fetchProducts();
-  });
+  }, []);
 
   return (
     <>
@@ -88,6 +100,7 @@ const Products: React.FC = () => {
                 <button
                   type="button"
                   className="btn btn-danger btn-sm product-btn-container"
+                  onClick={() => handleDelete(product.id as number)}
                 >
                   Delete
                 </button>
