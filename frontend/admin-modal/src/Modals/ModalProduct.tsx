@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUpdateProducts } from "../Hooks/useProducts";
 
@@ -14,7 +14,7 @@ type ModalProductProps = {
   id: number;
   product: Product;
   onClose: () => void;
-  onSubmit: (data: Product) => void;
+  onSubmit: () => void;
 };
 
 const ModalProduct: React.FC<ModalProductProps> = ({
@@ -27,19 +27,18 @@ const ModalProduct: React.FC<ModalProductProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Product>({ defaultValues: product }); // Använd defaultValues för att fylla i formuläret med produktdata
+  } = useForm<Product>({ defaultValues: product });
 
-  const { updateProduct } = useUpdateProducts(product.id || 0); // Anropa useUpdateProducts med produktens id
+  const { updateProduct } = useUpdateProducts(product.id || 0); 
 
   const handleFormSubmit: SubmitHandler<Product> = async (data) => {
     try {
-      const updatedProduct = { ...data, id: product.id }; // Uppdatera dataobjektet med produktens id
-      await updateProduct(updatedProduct); // Anropa updateProduct för att uppdatera produkten
-      onSubmit(updatedProduct); // Skicka in det uppdaterade produktobjektet till onSubmit
-
+      const updatedProduct = { ...data, id: product.id };
+      await updateProduct(updatedProduct); 
+      onSubmit();
       console.log("submit ", updatedProduct);
-      reset(); // Återställ formuläret efter att det har skickats
-      onClose(); // Stäng modalen
+      reset(); 
+      onClose(); 
     } catch (error) {
       console.error("Error submitting form:", error);
     }

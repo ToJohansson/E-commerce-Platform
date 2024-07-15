@@ -3,14 +3,6 @@ import { useGetProducts } from "../Hooks/useProducts";
 import "./components.css";
 import ModalProduct from "../Modals/ModalProduct";
 
-type Product = {
-  id: number;
-  name: string;
-  stock: number;
-  price: number;
-  description: string;
-};
-
 const Products: React.FC = () => {
   const { getAllProducts, data, error, loading } = useGetProducts();
   const [activeId, setActiveId] = useState<number | null>(null);
@@ -33,9 +25,13 @@ const Products: React.FC = () => {
     setActiveId((prevId) => (prevId === id ? null : id));
   };
 
-  useEffect(() => {
+  const fetchProducts = () => {
     getAllProducts();
-  }, []);
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  });
 
   return (
     <>
@@ -106,6 +102,7 @@ const Products: React.FC = () => {
           id={selectedProductId}
           product={data!.find((p) => p.id === selectedProductId)!}
           onClose={closeModalProduct}
+          onSubmit={fetchProducts}
         />
       )}
     </>
