@@ -3,6 +3,14 @@ import { useGetProducts, useDeleteProduct } from "../Hooks/useProducts";
 import "./components.css";
 import ModalProduct from "../Modals/ModalProduct";
 
+
+interface Product {
+  id?: number;
+  name: string;
+  stock: number;
+  price: number;
+  description: string;
+}
 const Products: React.FC = () => {
   const { getAllProducts, data, error, loading } = useGetProducts();
   const { deleteProduct} = useDeleteProduct();
@@ -43,7 +51,8 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [] // eslint-disable-next-line react-hooks/exhaustive-deps
+);
 
   return (
     <>
@@ -54,7 +63,7 @@ const Products: React.FC = () => {
       {error && <p>Error: {error}</p>}
 
       <div className="accordion" id="accordionExample">
-        {data?.map((product) => {
+        {data?.map((product: Product) => {
           const collapseId = `collapse${product.id}`;
           const headingId = `heading${product.id}`;
           const isActive = activeId === product.id;
