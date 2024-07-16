@@ -12,6 +12,7 @@ import tojohansson.Order.exceptions.EntityNotFoundException;
 import tojohansson.Order.models.Order;
 import tojohansson.Order.repositories.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,9 +61,36 @@ public class OrderService {
     // Put
     public Order updateOrder(Long id, OrderDto dto) {
         Order order = checkOrderById(id);
-        order = mapDtoToOrder(dto, order);
+
+        // Update order details
+        order.setTotalPrice(dto.getTotalPrice());
+        order.setStatus(dto.getStatus());
+        order.setCustomerId(dto.getCustomerId());
+
+        // Update order items
+        List<OrderItem> updatedOrderItems = new ArrayList<>();
+        for (OrderItemDto itemDto : dto.getListOfProducts()) {
+            OrderItem existingItem = order.getListOfProducts().stream()
+                    .filter(item -> item.getId().equals(itemDto.getId()))
+                    .findFirst()
+                    .orElse(new OrderItem());
+
+            // Update or set properties
+            existingItem.setProductId(itemDto.getProductId());
+            existingItem.setQuantity(itemDto.getQuantity());
+            existingItem.setOrder(order);
+
+            updatedOrderItems.add(existingItem);
+        }
+
+        // Remove old order items not present in updated list
+        order.getListOfProducts().removeIf(item -> !updatedOrderItems.contains(item));
+
+        // Save order
+        order.setListOfProducts(updatedOrderItems);
         return orderRepository.save(order);
     }
+
 
     // Delete
     @Transactional

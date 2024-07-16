@@ -11,7 +11,7 @@ interface Customer  {
   mail: string
 }
 
-const Products: React.FC = () => {
+const Customers: React.FC = () => {
   const { getAllCustomers, data, error, loading } = useGetCustomers();
   const { deleteCustomer} = useDeleteCustomer();
 
@@ -95,6 +95,7 @@ const Products: React.FC = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body">
+                  <div>Customer ID: {customer.id}</div>
                   <div>Address: {customer.address}</div>
                   <div>Mail: {customer.mail}</div>
                 </div>
@@ -130,4 +131,4 @@ const Products: React.FC = () => {
   );
 };
 
-export default Products;
+export default Customers;
