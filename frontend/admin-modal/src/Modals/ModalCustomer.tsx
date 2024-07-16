@@ -35,7 +35,6 @@ const ModalCustomer: React.FC<ModalCustomerProps> = ({
       const updatedCustomer = { ...data, id: customer.id };
       await updateCustomer(updatedCustomer); 
       onSubmit();
-      console.log("submit ", updatedCustomer);
       reset(); 
       onClose(); 
     } catch (error) {

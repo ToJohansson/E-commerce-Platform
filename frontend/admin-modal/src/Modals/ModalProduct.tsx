@@ -36,7 +36,6 @@ const ModalProduct: React.FC<ModalProductProps> = ({
       const updatedProduct = { ...data, id: product.id };
       await updateProduct(updatedProduct); 
       onSubmit();
-      console.log("submit ", updatedProduct);
       reset(); 
       onClose(); 
     } catch (error) {
