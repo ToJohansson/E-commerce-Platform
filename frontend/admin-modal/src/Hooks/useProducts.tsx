@@ -7,7 +7,6 @@ import {
   deleteProductById,
 } from "../Api/productApi";
 import { AxiosError } from "axios";
-import { getCustomers } from "../Api/customerApi"; // DELETE
 
 type Product = {
   id?: number;
@@ -47,7 +46,6 @@ export const useGetProducts = () => {
   const getAllProducts = async () => {
     setLoading(true);
     try {
-      await getCustomers(); // DELETE
       const response = await getProducts();
       setData(response);
     } catch (err) {

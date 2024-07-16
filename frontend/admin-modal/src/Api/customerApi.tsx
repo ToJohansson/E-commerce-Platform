@@ -15,7 +15,6 @@ export const getCustomers = async (): Promise<Customer[]> => {
       const response: AxiosResponse<Customer[]> = await customerService.get(
         url + "/"
       );
-      console.log("CUSTOMER DATA ", response.data)
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -26,5 +25,34 @@ export const getCustomers = async (): Promise<Customer[]> => {
     }
   };
 
+  export const putCustomer = async (
+    id: number,
+    customer: Customer
+  ): Promise<Customer> => {
+    try {
+      const response: AxiosResponse<Customer> = await customerService.put(
+        url + `/${id}`,
+        customer
+      );
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(error.response?.data?.message || "An error occurred");
+      } else {
+        throw new Error("An unexpected error occurred");
+      }
+    }
+  };
+  export const deleteCustomerById = async (id: number): Promise<void> => {
+    try {
+      await customerService.delete(url + `/${id}`);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(error.response?.data?.message || "An error occurred");
+      } else {
+        throw new Error("An unexpected error occurred");
+      }
+    }
+  };
 
 
