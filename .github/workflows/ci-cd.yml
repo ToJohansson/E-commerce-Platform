@@ -9,8 +9,17 @@ on:
       - main
 
 jobs:
-  build-and-push-order:
+  backend:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - Order
+          - Product
+          - customer
+    defaults:
+      run:
+        working-directory: ./backend/${{ matrix.service }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -33,50 +42,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Build Order microservice Docker image
+      - name: Build and push Docker image
         run: |
-          echo "Building Order microservice..."
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:order-latest .
-        working-directory: ./backend/Order
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest
+        working-directory: ./backend/${{ matrix.service }}
 
-      - name: Push Order microservice Docker image
-        run: |
-          echo "Pushing Order microservice..."
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:order-latest
-
-  build-and-push-product:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '17'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Build Product microservice Docker image
-        run: |
-          echo "Building Product microservice..."
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:product-latest .
-        working-directory: ./backend/Product
-
-      - name: Push Product microservice Docker image
-        run: |
-          echo "Pushing Product microservice..."
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:product-latest
+        
