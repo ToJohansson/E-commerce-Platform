@@ -1,0 +1,41 @@
+name: Deploy Customer to Docker Hub
+
+on: 
+  workflow_dispatch
+
+jobs:
+  backend-customer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-customer-${{ hashFiles('backend/customer/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-customer
+
+      - name: Build and push Docker image to Docker Hub
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+                # Replace with your Docker Hub username and image name
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
+      
+                # Build Docker image
+                docker build -t $IMAGE_NAME:latest ./backend/customer
+      
+                # Login to Docker Hub using access token
+                echo $DOCKER_HUB_TOKEN | docker login docker.io -u $DOCKER_HUB_USERNAME --password-stdin
+      
+                # Push Docker image to Docker Hub
+                docker push $IMAGE_NAME:latest
