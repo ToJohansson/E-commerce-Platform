@@ -9,17 +9,8 @@ on:
       - main
 
 jobs:
-  backend:
+  backend-order:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service:
-          - Order
-          - Product
-          - customer
-    defaults:
-      run:
-        working-directory: ./backend/${{ matrix.service }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -34,7 +25,43 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
+          key: ${{ runner.os }}-maven-order-${{ hashFiles('backend/Order/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-order
 
-     
+  backend-product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-product-${{ hashFiles('backend/Product/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-product
+
+  backend-customer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-customer-${{ hashFiles('backend/customer/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-customer
