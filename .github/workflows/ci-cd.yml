@@ -30,7 +30,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                 # Replace with your Docker Hub username and image name
-                IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/order-service"
       
                 # Build Docker image
                 docker build -t $IMAGE_NAME:latest ./backend/Order
@@ -41,6 +41,7 @@ jobs:
                 # Push Docker image to Docker Hub
                 docker push $IMAGE_NAME:latest
       
+
   backend-product:
     runs-on: ubuntu-latest
     steps:
@@ -66,7 +67,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                   # Replace with your Docker Hub username and image name
-                  IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
+                  IMAGE_NAME="${DOCKER_HUB_USERNAME}/product-service"
         
                   # Build Docker image
                   docker build -t $IMAGE_NAME:latest ./backend/Product
@@ -103,7 +104,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                 # Replace with your Docker Hub username and image name
-                IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/customer-service"
       
                 # Build Docker image
                 docker build -t $IMAGE_NAME:latest ./backend/customer
