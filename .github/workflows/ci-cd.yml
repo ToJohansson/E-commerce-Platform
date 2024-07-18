@@ -41,7 +41,6 @@ jobs:
                 # Push Docker image to Docker Hub
                 docker push $IMAGE_NAME:latest
       
-
   backend-product:
     runs-on: ubuntu-latest
     steps:
