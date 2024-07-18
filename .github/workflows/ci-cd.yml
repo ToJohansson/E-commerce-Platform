@@ -29,7 +29,7 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-order
       - name: Build and push Docker image to Docker Hub
         env:
-            DCOKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+            DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
             DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
             # Replace with your Docker Hub username and image name
