@@ -9,17 +9,8 @@ on:
       - main
 
 jobs:
-  backend:
+  build-and-push-order:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service:
-          - Order
-          - Product
-          - customer
-    defaults:
-      run:
-        working-directory: ./backend/${{ matrix.service }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -42,10 +33,71 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest .
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest
-        working-directory: ./backend/${{ matrix.service }}
 
-        
+      - name: Build and push Order microservice Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:order-latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:order-latest
+        working-directory: ./backend/Order
+
+  build-and-push-product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push Product microservice Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:product-latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:product-latest
+        working-directory: ./backend/Product
+
+  build-and-push-customer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push Customer microservice Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:customer-latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:customer-latest
+        working-directory: ./backend/customer
