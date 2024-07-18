@@ -1,18 +1,23 @@
-import { customerService } from "./axiosInstance";
+import { orderService } from "./axiosInstance";
 import { AxiosResponse, AxiosError } from "axios";
 
-type Customer = {
+type Order = {
     id?: number,
-    name: string,
-    address: string,
-    mail: string
-}
+    totalPrice: number,
+    status: string,
+    customerId: number,
+    listOfProducts: {
+        id: number,
+        productId: number,
+        quantity: number
+    }[]
+};
 
-const url = "/customers";
+const url = "/orders";
 
-export const getCustomers = async (): Promise<Customer[]> => {
+export const getOrders = async (): Promise<Order[]> => {
     try {
-      const response: AxiosResponse<Customer[]> = await customerService.get(
+      const response: AxiosResponse<Order[]> = await orderService.get(
         url + "/"
       );
       return response.data;
@@ -25,14 +30,14 @@ export const getCustomers = async (): Promise<Customer[]> => {
     }
   };
 
-  export const putCustomer = async (
+  export const putOrder = async (
     id: number,
-    customer: Customer
-  ): Promise<Customer> => {
+    order: Order
+  ): Promise<Order> => {
     try {
-      const response: AxiosResponse<Customer> = await customerService.put(
+      const response: AxiosResponse<Order> = await orderService.put(
         url + `/${id}`,
-        customer
+        order
       );
       return response.data;
     } catch (error) {
@@ -43,9 +48,9 @@ export const getCustomers = async (): Promise<Customer[]> => {
       }
     }
   };
-  export const deleteCustomerById = async (id: number): Promise<void> => {
+  export const deleteOrderById = async (id: number): Promise<void> => {
     try {
-      await customerService.delete(url + `/${id}`);
+      await orderService.delete(url + `/${id}`);
     } catch (error) {
       if (error instanceof AxiosError) {
         throw new Error(error.response?.data?.message || "An error occurred");

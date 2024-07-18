@@ -1,24 +1,23 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useUpdateProducts } from "../Hooks/useProducts";
+import { useUpdateCustomer } from "../Hooks/useCustomers";
 
-type Product = {
+type Customer = {
   id?: number;
   name: string;
-  stock: number;
-  price: number;
-  description: string;
+  address: string,
+  mail: string
 };
 
-type ModalProductProps = {
+type ModalCustomerProps = {
   id: number;
-  product: Product;
+  customer: Customer;
   onClose: () => void;
   onSubmit: () => void;
 };
 
-const ModalProduct: React.FC<ModalProductProps> = ({
-  product,
+const ModalCustomer: React.FC<ModalCustomerProps> = ({
+  customer,
   onClose,
   onSubmit,
 }) => {
@@ -27,14 +26,14 @@ const ModalProduct: React.FC<ModalProductProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Product>({ defaultValues: product });
+  } = useForm<Customer>({ defaultValues: customer });
 
-  const { updateProduct } = useUpdateProducts(product.id || 0); 
+  const { updateCustomer } = useUpdateCustomer(customer.id || 0); 
 
-  const handleFormSubmit: SubmitHandler<Product> = async (data) => {
+  const handleFormSubmit: SubmitHandler<Customer> = async (data) => {
     try {
-      const updatedProduct = { ...data, id: product.id };
-      await updateProduct(updatedProduct); 
+      const updatedCustomer = { ...data, id: customer.id };
+      await updateCustomer(updatedCustomer); 
       onSubmit();
       reset(); 
       onClose(); 
@@ -56,7 +55,7 @@ const ModalProduct: React.FC<ModalProductProps> = ({
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Update Product
+              Update Customer
             </h5>
             <button
               type="button"
@@ -70,14 +69,14 @@ const ModalProduct: React.FC<ModalProductProps> = ({
             <form onSubmit={handleSubmit(handleFormSubmit)} noValidate>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  Product Name
+                  Customer Name
                 </label>
                 <input
                   id="name"
                   type="text"
                   className={`form-control ${errors.name ? "is-invalid" : ""}`}
                   {...register("name", {
-                    required: "Product name is required",
+                    required: "Customer name is required",
                   })}
                 />
                 {errors.name && (
@@ -85,58 +84,38 @@ const ModalProduct: React.FC<ModalProductProps> = ({
                 )}
               </div>
               <div className="mb-3">
-                <label htmlFor="price" className="form-label">
-                  Price
+                <label htmlFor="address" className="form-label">
+                  Address
                 </label>
                 <input
-                  id="price"
-                  type="number"
-                  className={`form-control ${errors.price ? "is-invalid" : ""}`}
-                  {...register("price", {
-                    required: "Price is required",
-                    valueAsNumber: true,
+                  id="address"
+                  type="text"
+                  className={`form-control ${errors.address ? "is-invalid" : ""}`}
+                  {...register("address", {
+                    required: "address is required",
                   })}
                 />
-                {errors.price && (
-                  <div className="invalid-feedback">{errors.price.message}</div>
+                {errors.address && (
+                  <div className="invalid-feedback">{errors.address.message}</div>
                 )}
               </div>
               <div className="mb-3">
-                <label htmlFor="stock" className="form-label">
-                  Stock
+                <label htmlFor="mail" className="form-label">
+                  Mail
                 </label>
                 <input
-                  id="stock"
-                  type="number"
-                  className={`form-control ${errors.stock ? "is-invalid" : ""}`}
-                  {...register("stock", {
-                    required: "Stock is required",
-                    valueAsNumber: true,
+                  id="mail"
+                  type="text"
+                  className={`form-control ${errors.mail ? "is-invalid" : ""}`}
+                  {...register("mail", {
+                    required: "mail is required",
                   })}
                 />
-                {errors.stock && (
-                  <div className="invalid-feedback">{errors.stock.message}</div>
+                {errors.mail && (
+                  <div className="invalid-feedback">{errors.mail.message}</div>
                 )}
               </div>
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label">
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  className={`form-control ${
-                    errors.description ? "is-invalid" : ""
-                  }`}
-                  {...register("description", {
-                    required: "Description is required",
-                  })}
-                />
-                {errors.description && (
-                  <div className="invalid-feedback">
-                    {errors.description.message}
-                  </div>
-                )}
-              </div>
+
               <div className="modal-footer">
                 <button
                   type="button"
@@ -158,4 +137,4 @@ const ModalProduct: React.FC<ModalProductProps> = ({
   );
 };
 
-export default ModalProduct;
+export default ModalCustomer;
