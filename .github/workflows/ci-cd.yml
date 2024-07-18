@@ -1,12 +1,8 @@
 name: CI/CD Pipeline
 
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+on: 
+  workflow_dispatch
+
 
 jobs:
   backend-order:
@@ -27,7 +23,22 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-order-${{ hashFiles('backend/Order/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-order
-
+      - name: Build and push Docker image to Docker Hub
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+                # Replace with your Docker Hub username and image name
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/order-service"
+      
+                # Build Docker image
+                docker build -t $IMAGE_NAME:latest ./backend/Order
+      
+                # Login to Docker Hub using access token
+                echo $DOCKER_HUB_TOKEN | docker login docker.io -u $DOCKER_HUB_USERNAME --password-stdin
+      
+                # Push Docker image to Docker Hub
+                docker push $IMAGE_NAME:latest
       
 
   backend-product:
@@ -84,3 +95,20 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-customer-${{ hashFiles('backend/customer/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-customer
+
+      - name: Build and push Docker image to Docker Hub
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+                # Replace with your Docker Hub username and image name
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/customer-service"
+      
+                # Build Docker image
+                docker build -t $IMAGE_NAME:latest ./backend/customer
+      
+                # Login to Docker Hub using access token
+                echo $DOCKER_HUB_TOKEN | docker login docker.io -u $DOCKER_HUB_USERNAME --password-stdin
+      
+                # Push Docker image to Docker Hub
+                docker push $IMAGE_NAME:latest
