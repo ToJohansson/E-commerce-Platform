@@ -30,7 +30,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                 # Replace with your Docker Hub username and image name
-                IMAGE_NAME="${DOCKER_HUB_USERNAME}/order-service"
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
       
                 # Build Docker image
                 docker build -t $IMAGE_NAME:latest ./backend/Order
@@ -67,7 +67,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                   # Replace with your Docker Hub username and image name
-                  IMAGE_NAME="${DOCKER_HUB_USERNAME}/product-service"
+                  IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
         
                   # Build Docker image
                   docker build -t $IMAGE_NAME:latest ./backend/Product
@@ -104,7 +104,7 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
                 # Replace with your Docker Hub username and image name
-                IMAGE_NAME="${DOCKER_HUB_USERNAME}/customer-service"
+                IMAGE_NAME="${DOCKER_HUB_USERNAME}/docker-practice-repo"
       
                 # Build Docker image
                 docker build -t $IMAGE_NAME:latest ./backend/customer
