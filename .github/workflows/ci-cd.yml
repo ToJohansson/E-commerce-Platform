@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   backend:
@@ -13,7 +16,7 @@ jobs:
         service:
           - Order
           - Product
-          - customer
+          - Customer
     defaults:
       run:
         working-directory: ./backend/${{ matrix.service }}
@@ -34,6 +37,16 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
 
-     
+      - name: Build with Maven
+        run: mvn clean install
 
- 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest

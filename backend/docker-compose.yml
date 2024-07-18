@@ -1,52 +1,80 @@
-name: CI/CD Pipeline
+version: "3.8"
 
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+services:
+  product-service:
+    build:
+      context: C:/Users/46768/Documents/ecom/backend/Product
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    depends_on:
+      - product-db
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://product-db:5432/productdb
+      - SPRING_DATASOURCE_USERNAME=productuser
+      - SPRING_DATASOURCE_PASSWORD=productpass
 
-jobs:
-  backend:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service:
-          - Order
-          - Product
-          - Customer
-    defaults:
-      run:
-        working-directory: ./backend/${{ matrix.service }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+  product-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=productdb
+      - POSTGRES_USER=productuser
+      - POSTGRES_PASSWORD=productpass
+    ports:
+      - "5431:5432"
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '17'
+  customer-service:
+    build:
+      context: C:/Users/46768/Documents/ecom/backend/customer
+      dockerfile: Dockerfile
+    ports:
+      - "8282:8282"
+    depends_on:
+      - customer-db
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://customer-db:5432/customerdb
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=user
 
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
+  customer-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=customerdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+    ports:
+      - "5432:5432"
 
-      - name: Build with Maven
-        run: mvn clean install
+  order-service:
+    build:
+      context: C:/Users/46768/Documents/ecom/backend/Order
+      dockerfile: Dockerfile
+    ports:
+      - "8383:8383"
+    depends_on:
+      - order-db
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://order-db:5432/orderdb
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=user
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+  order-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=orderdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+    ports:
+      - "5433:5432"
 
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest .
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-practice-repo:${{ matrix.service }}-latest
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672" 
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
