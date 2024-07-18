@@ -1,0 +1,10 @@
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\controllers\CustomerController.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\CustomerApplication.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\dto\CustomerDto.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\exceptions\EntityNotFoundException.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\models\Customer.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\repositories\CustomerRepository.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\rmq\RabbitMQConfig.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\rmq\RabbitMQReceiver.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\rmq\RabbitMQSender.java
+C:\Users\46768\Documents\ecom\backend\customer\src\main\java\tojohansson\customer\services\CustomerService.java
