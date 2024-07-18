@@ -16,7 +16,7 @@ jobs:
         service:
           - Order
           - Product
-          - Customer
+          - customer
     defaults:
       run:
         working-directory: ./backend/${{ matrix.service }}
