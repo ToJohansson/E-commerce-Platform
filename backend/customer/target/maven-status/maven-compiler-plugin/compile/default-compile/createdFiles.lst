@@ -1,0 +1,10 @@
+tojohansson\customer\rmq\RabbitMQSender.class
+tojohansson\customer\rmq\RabbitMQConfig.class
+tojohansson\customer\controllers\CustomerController.class
+tojohansson\customer\dto\CustomerDto.class
+tojohansson\customer\CustomerApplication.class
+tojohansson\customer\repositories\CustomerRepository.class
+tojohansson\customer\exceptions\EntityNotFoundException.class
+tojohansson\customer\models\Customer.class
+tojohansson\customer\rmq\RabbitMQReceiver.class
+tojohansson\customer\services\CustomerService.class

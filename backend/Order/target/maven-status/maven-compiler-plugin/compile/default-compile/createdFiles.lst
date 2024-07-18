@@ -1,0 +1,17 @@
+tojohansson\Order\models\OrderItem.class
+tojohansson\Order\rmq\RabbitMQReceiver.class
+tojohansson\Order\dto\OrderDto.class
+tojohansson\Order\repositories\OrderRepository.class
+tojohansson\Order\deserialize\CustomerDtoDeserializer.class
+tojohansson\Order\dto\CustomerDto.class
+tojohansson\Order\models\Order$OrderStatus.class
+tojohansson\Order\controllers\OrderController.class
+tojohansson\Order\models\Order.class
+tojohansson\Order\deserialize\ProductDtoDeserializer.class
+tojohansson\Order\OrderApplication.class
+tojohansson\Order\rmq\RabbitMQConfig.class
+tojohansson\Order\dto\OrderItemDto.class
+tojohansson\Order\rmq\RabbitMQSender.class
+tojohansson\Order\services\OrderService.class
+tojohansson\Order\dto\ProductDto.class
+tojohansson\Order\exceptions\EntityNotFoundException.class
