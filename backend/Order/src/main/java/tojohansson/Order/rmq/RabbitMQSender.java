@@ -18,18 +18,15 @@ public class RabbitMQSender {
     private ObjectMapper objectMapper;
 
     public void sendProductDto(OrderItem dto) throws JsonProcessingException {
-        System.out.println("incoming dto " + dto.getProductId());
         ProductDto productDto = mapOrderItemToProduct(dto);
 
         String jsonDto = objectMapper.writeValueAsString(productDto);
 
-        System.out.println("SENDING PRODUCT ID " + jsonDto);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "product.info.request", jsonDto);
 
     }
 
     public void sendCustomerId(Long id) {
-        System.out.println("SENDING CUSTOMER ID " + id);
 
         if (id != null) {
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "customer.info.request", id);

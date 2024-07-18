@@ -26,7 +26,15 @@ public class Order {
     private OrderStatus status;
 
     // Customer
+    @Column(name = "customer_id")
     private Long customerId;
+
+    @Column(name = "customer_name")
+    private String customerName;
+    @Column(name = "customer_mail")
+    private String customerMail;
+    @Column(name = "customer_address")
+    private String customerAddress;
     // Product
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -68,6 +76,30 @@ public class Order {
 
     public void setListOfProducts(List<OrderItem> listOfProducts) {
         this.listOfProducts = listOfProducts;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerMail() {
+        return customerMail;
+    }
+
+    public void setCustomerMail(String customerMail) {
+        this.customerMail = customerMail;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 }
 

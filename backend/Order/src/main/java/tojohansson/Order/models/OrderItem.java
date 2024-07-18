@@ -18,6 +18,9 @@ public class OrderItem {
     @Column(name = "product_id")
     private Long productId;
 
+    @Column(name = "product_name")
+    private String productName;
+
     @Column(name = "quantity")
     private int quantity;
 
@@ -49,5 +52,13 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
