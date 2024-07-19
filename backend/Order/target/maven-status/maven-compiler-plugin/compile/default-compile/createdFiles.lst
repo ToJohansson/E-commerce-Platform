@@ -8,6 +8,7 @@ tojohansson\Order\models\Order$OrderStatus.class
 tojohansson\Order\controllers\OrderController.class
 tojohansson\Order\models\Order.class
 tojohansson\Order\deserialize\ProductDtoDeserializer.class
+tojohansson\Order\services\DataService.class
 tojohansson\Order\OrderApplication.class
 tojohansson\Order\rmq\RabbitMQConfig.class
 tojohansson\Order\dto\OrderItemDto.class

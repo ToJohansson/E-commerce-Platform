@@ -13,4 +13,5 @@ C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\repo
 C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\rmq\RabbitMQConfig.java
 C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\rmq\RabbitMQReceiver.java
 C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\rmq\RabbitMQSender.java
+C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\services\DataService.java
 C:\Users\46768\Documents\ecom\backend\Order\src\main\java\tojohansson\Order\services\OrderService.java
