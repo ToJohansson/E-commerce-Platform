@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tojohansson.customer.CustomerApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.409 s -- in tojohansson.customer.CustomerApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.668 s -- in tojohansson.customer.CustomerApplicationTests
