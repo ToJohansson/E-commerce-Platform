@@ -8,7 +8,6 @@ import tojohansson.Order.dto.CustomerDto;
 import tojohansson.Order.dto.OrderItemDto;
 import tojohansson.Order.dto.ProductDto;
 import tojohansson.Order.models.OrderItem;
-import tojohansson.Order.rmq.RabbitMQReceiver;
 import tojohansson.Order.rmq.RabbitMQSender;
 import tojohansson.Order.dto.OrderDto;
 import tojohansson.Order.exceptions.EntityNotFoundException;
