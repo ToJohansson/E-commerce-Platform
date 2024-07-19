@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tojohansson.Order.OrderApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.825 s -- in tojohansson.Order.OrderApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.835 s -- in tojohansson.Order.OrderApplicationTests
