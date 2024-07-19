@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tojohansson.Order.dto.CustomerDto;
 import tojohansson.Order.dto.OrderItemDto;
+import tojohansson.Order.dto.ProductDto;
 import tojohansson.Order.models.OrderItem;
+import tojohansson.Order.rmq.RabbitMQReceiver;
 import tojohansson.Order.rmq.RabbitMQSender;
 import tojohansson.Order.dto.OrderDto;
 import tojohansson.Order.exceptions.EntityNotFoundException;
@@ -14,6 +17,7 @@ import tojohansson.Order.repositories.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +25,9 @@ public class OrderService {
 
     @Autowired
     private RabbitMQSender rabbitMQSender;
+
+    @Autowired
+    private DataService dataService;
     @Autowired
     private OrderRepository orderRepository;
 
@@ -40,10 +47,61 @@ public class OrderService {
         for (OrderItem item : orderItems) {
             rabbitMQSender.sendProductDto(item);
         }
+        // wait for all products messages to be received
+        waitForProductData(orderItems);
 
+        CustomerDto customerData = dataService.getCustomerData();
+        ConcurrentMap<Long, ProductDto> allProductData = dataService.getAllProductData();
+
+        // handle customer
+        order.setCustomerName(customerData.getName());
+        order.setCustomerAddress(customerData.getAddress());
+        order.setCustomerMail(customerData.getMail());
+
+        // handle products
+        double calculateTotalPrice = 0;
+        for (OrderItem item : orderItems) {
+            ProductDto productData = allProductData.get(item.getProductId());
+
+            if (productData != null) {
+                calculateTotalPrice += productData.getPrice();
+                item.setProductName(productData.getName());
+                item.setProductId(productData.getId());
+                item.setQuantity(productData.getStock());
+            }
+        }
+
+        order.setTotalPrice(calculateTotalPrice);
         order.setStatus(Order.OrderStatus.PENDING);
         return orderRepository.save(order);
     }
+
+    private void waitForProductData(List<OrderItem> orderItems) {
+        long startTime = System.currentTimeMillis();
+        long timeout = 3000;
+
+        while (true) {
+            boolean allDataReceived = true;
+            for (OrderItem item : orderItems) {
+                if (dataService.getProductData(item.getProductId()) == null) {
+                    allDataReceived = false;
+                    break;
+                }
+            }
+
+            if (allDataReceived || System.currentTimeMillis() - startTime > timeout) {
+                break;
+            }
+
+            try {
+                Thread.sleep(100); // Vänta en kort stund innan nästa kontroll
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+    }
+
 
     // Get
     public List<OrderDto> getAllOrders() {
